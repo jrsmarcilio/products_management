@@ -1,0 +1,15 @@
+<div class="p-6 flex flex-wrap">
+  <mat-card *ngFor="let item of data" class="w-48 h-fit mx-2">
+    <mat-card-content>
+      <p>{{item.name}}</p>
+      <p>{{item.price}}</p>
+      <p>{{item.stock}}</p>
+      <div class="flex justify-between">
+        <button (click)="navigate(item.id)" type="button" class="btn btn-primary">Editar</button>
+        <button (click)="deleteProduct(item.id)" type="button" class="btn btn-danger">Delete</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<button (click)="this.router.navigate(['create'])" type="button" class="btn btn-primary d-block mx-auto">Criar produto</button>
+
