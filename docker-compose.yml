@@ -8,9 +8,7 @@ services:
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "3307:${DB_PORT}"
-    # volumes:
-    #   - ./mysql_data:/var/lib/mysql 
+      - "3307:3306"
 
   backend:
     container_name: usavings_backend
@@ -37,8 +35,4 @@ services:
       - 4200:4200
     depends_on:
       - backend
-
-# volumes:
-#   mysql_data:
-
 
