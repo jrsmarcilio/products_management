@@ -1,21 +1,16 @@
 export class ProductModel {
-  id: number;
+  id?: number;
   price: number;
   stock: number;
   name: string;
-  validity: Date;
+  validity: Date | string;
 
-  constructor(
-    id: number,
-    price: number,
-    stock: number,
-    name: string,
-    validity: string
-  ) {
-    this.id = id;
+  constructor(product: ProductModel) {
+    const { name, price, stock, validity } = product;
+
     this.price = price;
     this.stock = stock;
     this.name = name;
-    this.validity = new Date(validity);
+    this.validity = validity;
   }
 }
