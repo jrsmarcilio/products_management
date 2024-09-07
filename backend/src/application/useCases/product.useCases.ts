@@ -32,4 +32,10 @@ export class ProductUseCases {
   async delete(id: number): Promise<{ deleted: boolean }> {
     return await this.productRepo.delete(id);
   }
+
+  async filterByDate(startDate: Date, endDate: Date): Promise<Product[]> {
+    console.log(startDate, endDate);
+
+    return await this.productRepo.filterByDate(startDate, endDate);
+  }
 }

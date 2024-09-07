@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -43,5 +44,18 @@ export class ProductController {
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<{ deleted: boolean }> {
     return await this.productUseCases.delete(id);
+  }
+
+  @Get('filter/:startDate/:endDate')
+  async filterByDate(
+    @Param('startDate') startDate: string,
+    @Param('endDate') endDate: string,
+  ): Promise<Product[]> {
+    if (!startDate || !endDate) throw new BadRequestException('cadê as datas');
+
+    return await this.productUseCases.filterByDate(
+      new Date(startDate),
+      new Date(endDate),
+    );
   }
 }
