@@ -1,15 +1,31 @@
-<div class="p-6 flex flex-wrap">
-  <mat-card *ngFor="let item of data" class="w-48 h-fit mx-2">
-    <mat-card-content>
-      <p>{{item.name}}</p>
-      <p>{{item.price}}</p>
-      <p>{{item.stock}}</p>
-      <div class="flex justify-between">
-        <button (click)="navigate(item.id)" type="button" class="btn btn-primary">Editar</button>
-        <button (click)="deleteProduct(item.id)" type="button" class="btn btn-danger">Delete</button>
-      </div>
-    </mat-card-content>
-  </mat-card>
+<div class="p-6">
+  <form [formGroup]="filterForm" (ngSubmit)="getProductsByDate()">
+  <div class="flex max-md:flex-row max-sm:flex-col justify-between w-1/2">
+      <mat-form-field>
+        <mat-label>Data inicial</mat-label>
+        <input matInput name="Data inicial" formControlName="startDate" maxlength="10" minlength="10">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Data final</mat-label>
+        <input matInput name="Data final" formControlName="endDate" maxlength="10" minlength="10">
+      </mat-form-field>
+      <button mat-flat-button type="submit">Filtrar</button>
+    </div>
+  </form>
+  <div class="flex flex-wrap">
+    <mat-card *ngFor="let item of data" class="w-56 h-fit m-2">
+      <mat-card-content class="text-center">
+        <p>{{item.name}}</p>
+        <p>R${{item.price}}</p>
+        <p>Estoque: {{item.stock}}</p>
+        <div class="flex justify-between">
+          <button mat-flat-button (click)="navigate(item.id!)" type="button" class="btn btn-primary">Editar</button>
+          <button mat-flat-button (click)="deleteProduct(item.id!)" type="button" style="background-color: red;">Delete</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="mx-auto mt-10 mb-0 block w-fit">
+    <button mat-flat-button (click)="this.router.navigate(['create'])" type="button">Criar produto</button>
+  </div>
 </div>
-<button (click)="this.router.navigate(['create'])" type="button" class="btn btn-primary d-block mx-auto">Criar produto</button>
-
