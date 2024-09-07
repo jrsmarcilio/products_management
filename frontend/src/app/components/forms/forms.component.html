@@ -1,0 +1,24 @@
+<form class="block flex-col w-56 justify-center mx-auto mt-20" [formGroup]="postForm" (ngSubmit)="submitForm()">
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+      <input matInput name="name" formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Price</mat-label>
+      <input matInput name="price" formControlName="price">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Stock</mat-label>
+      <input matInput name="stock" formControlName="stock">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Validity</mat-label>
+      <input matInput name="validity" formControlName="validity" maxlength="10" minlength="10" (ngModelChange)="checkDate()" placeholder="mm-dd-yyyy">
+      <mat-error *ngIf="isDateValid == false || postForm.invalid">
+        Please use MM/dd/yyyy. Date must be higher than today
+      </mat-error>
+    </mat-form-field>
+    <div class="block mx-auto mt-10 mb-0 w-fit">
+      <button mat-flat-button type="submit" [disabled]="postForm.invalid || isDateValid === false" >{{button}}</button>
+    </div>
+</form>
