@@ -1,0 +1,44 @@
+services:
+  mysql_db:
+    image: mysql:8.0
+    container_name: mysql_db_container
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3307:${DB_PORT}"
+    # volumes:
+    #   - ./mysql_data:/var/lib/mysql 
+
+  backend:
+    container_name: usavings_backend
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - '8001:3000'
+    depends_on:
+      - mysql_db
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+
+  frontend:
+    container_name: usavings_frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 4200:4200
+    depends_on:
+      - backend
+
+# volumes:
+#   mysql_data:
+
+
